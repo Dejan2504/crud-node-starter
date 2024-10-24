@@ -5,6 +5,8 @@ const path = require("path");
 const tokenCleanup = require("./utils/tokenCleanup");
 require("dotenv").config();
 
+const PORT = process.env.PORT;
+
 const app = express();
 const usersRouter = require("./Router/users");
 
@@ -33,15 +35,15 @@ app.use("*", (req, res) => {
   });
 });
 
-app.listen(3000, () => {
-  console.log("listening on port 3000");
+app.listen(PORT, () => {
+  console.log(`listening on port ${PORT}`);
 
   if (!fs.existsSync("./data")) {
     fs.mkdirSync("./data");
   }
 
   if (!fs.existsSync(".env")) {
-    fs.writeFileSync("./.env", "SALT=<salt>");
+    fs.writeFileSync("./.env", "SALT=<salt>\nPORT=3002");
   }
 
   if (!fs.existsSync("./data/users.json")) {
