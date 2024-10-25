@@ -3,6 +3,7 @@ const helmet = require("helmet");
 const fs = require("fs");
 const path = require("path");
 const tokenCleanup = require("./utils/tokenCleanup");
+const bs = require("browser-sync").create();
 require("dotenv").config();
 
 const PORT = process.env.PORT;
@@ -25,7 +26,7 @@ app.use((req, res, next) => {
 app.use("/user", usersRouter);
 
 app.get("/", (req, res) => {
-  res.send("Welcome to REST API!");
+  res.send("Welcome to REST!");
 });
 
 app.use("*", (req, res) => {
