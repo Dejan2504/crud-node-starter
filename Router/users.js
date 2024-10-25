@@ -48,9 +48,10 @@ router.post("/login", (req, res) => {
   //   Checking if the user can log in
 
   if (
-    users.some(
-      (user) => user.username === username && user.password === hashPassword
-    )
+    users.some((user) => {
+      console.log(user, { userr: username, pass: hashPassword });
+      return user.username === username && user.password === hashPassword;
+    })
   ) {
     const tokenData = fs.readFileSync("./data/token.json");
     const tokens = JSON.parse(tokenData);

@@ -3,7 +3,6 @@ const helmet = require("helmet");
 const fs = require("fs");
 const path = require("path");
 const tokenCleanup = require("./utils/tokenCleanup");
-const bs = require("browser-sync").create();
 require("dotenv").config();
 
 const PORT = process.env.PORT;
@@ -25,8 +24,16 @@ app.use((req, res, next) => {
 // ROUTES
 app.use("/user", usersRouter);
 
+app.get("/users", (req, res) => {
+  const usersBuffer = fs.readFileSync("./data/users.json");
+  const users = JSON.parse(usersBuffer);
+  res.json(users);
+});
+
 app.get("/", (req, res) => {
-  res.send("Welcome to REST!");
+  const tokens = fs.readFileSync("./data/token.json");
+  const token = JSON.parse(tokens);
+  res.json(token);
 });
 
 app.use("*", (req, res) => {
