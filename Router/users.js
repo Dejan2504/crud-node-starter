@@ -49,7 +49,6 @@ router.post("/login", (req, res) => {
 
   if (
     users.some((user) => {
-      console.log(user, { userr: username, pass: hashPassword });
       return user.username === username && user.password === hashPassword;
     })
   ) {
@@ -60,7 +59,6 @@ router.post("/login", (req, res) => {
     res.json({ message: "User logged in successfully", token: token });
   } else {
     res.json({ message: "Wrong username or password" });
-    console.log("ne postoji");
   }
 });
 
